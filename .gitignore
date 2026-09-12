@@ -1,0 +1,32 @@
+# ---- Data not redistributed -------------------------------------------------
+data/raw/*
+!data/raw/.gitkeep
+data/interim/*
+!data/interim/.gitkeep
+
+# ---- R ----------------------------------------------------------------------
+.Rhistory
+.RData
+.Rproj.user/
+*.Rproj.user
+renv/library/
+renv/staging/
+
+# ---- Stata ------------------------------------------------------------------
+*.smcl
+*.stsession
+
+# ---- LaTeX ------------------------------------------------------------------
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.bbl
+paper/*.blg
+paper/*.toc
+paper/*.synctex.gz
+paper/*.fdb_latexmk
+paper/*.fls
+
+# ---- OS ---------------------------------------------------------------------
+.DS_Store
+Thumbs.db

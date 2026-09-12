@@ -1,0 +1,670 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{setspace}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{natbib}
+\usepackage{pdflscape}
+\usepackage{threeparttable}
+\newcommand{\sym}[1]{\ifmmode^{#1}\else\(^{#1}\)\fi}
+\setstretch{1.15}
+\hypersetup{colorlinks=true, linkcolor=blue, citecolor=blue, urlcolor=blue}
+\setlength{\parskip}{0.45em}
+\setlength{\parindent}{1.2em}
+
+\title{Rivalry, Capacity, and GEO Activity: \\ Evidence from a Staggered Difference-in-Differences Design}
+\author{Yidong Yang}
+\date{March 31, 2026}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This paper examines how geopolitical rivalry relates to activity in geostationary orbit (GEO), focusing on the annual number of GEO satellite entries. Using a global country-year panel, I first show a positive descriptive association between rival pressure and GEO activity. I then implement a staggered difference-in-differences design in which treatment is defined as a sudden jump in rival pressure. The results provide design-based evidence that such shocks are followed by a modest increase in GEO entry intensity. A Sun--Abraham estimator yields a similar point estimate and supports the main dynamic pattern. As a supplementary check, I estimate a Cox model of first GEO entry and find that rivalry becomes much less informative once basic capacity controls are included. Taken together, the results suggest that rivalry matters mainly as a conditional accelerant among states that already possess the capacity to respond.
+\end{abstract}
+
+\section{Introduction}
+Why do some states respond to geopolitical competition by intensifying space activity, while others still fail to make an initial breakthrough into high-value orbital regimes? A lot of policy talk assumes a simple action--reaction script: rivals move first, everyone else scrambles to catch up. That story is intuitively attractive, especially in space, where satellites matter for communications, intelligence, military coordination, and national prestige. But it is also too neat. Space capability is not something states can improvise overnight. GEO activity requires money, launch access, industrial depth, technical personnel, and organizational experience. States can feel pressure without being able to do much about it.
+
+This paper argues that rivalry and capacity should be separated analytically. Rivalry creates incentives. Capacity determines whether those incentives can be converted into action. That distinction matters because the paper studies two different margins of behavior. The main outcome is annual GEO entry intensity: how many GEO entries a country records in a given year. The supplementary outcome is the timing of a country's first GEO entry. These are not the same thing. Increasing annual activity is a question about escalation among countries already close to the technological frontier. First entry is a question about threshold crossing under much harsher constraints.
+
+The empirical strategy proceeds in three steps. First, I estimate a descriptive OLS model with year fixed effects to show the baseline association between rival pressure and GEO activity. Second, I move to the paper's main design: a staggered difference-in-differences framework in which treatment is defined as the first substantial jump in rival pressure. I estimate both a baseline TWFE DID and an event-study specification to examine dynamic effects and near-term pre-trends. Third, I add a supplementary Cox proportional hazards analysis of first GEO entry. The hazard model is not the paper's main design; it is there to test whether the same rivalry story survives when the outcome switches from ongoing activity to threshold adoption.
+
+The results point to a split story. In the OLS specification, rival pressure is positively associated with annual GEO entries. In the main DID design, a rival-pressure jump is followed by a modest but statistically significant increase in logged GEO entry intensity. The event-study diagnostics do not show evidence of differential pre-trends in the near-term window. But the Cox results are much weaker. Rival pressure looks strong in a bivariate hazard model, then loses stability once capacity controls enter. Put simply, rivalry appears more useful for explaining short-run changes in activity among capable states than for explaining who gets into GEO in the first place.
+
+That conclusion matters for both theory and policy. A lot of loose arms-race language treats visible rival activity as if it mechanically produces imitation. The evidence here points to a more conditional account. Competition matters, but mainly where the underlying machinery of response already exists. That is a more disciplined way to think about escalation in space, and it avoids confusing strategic pressure with actual capability.
+
+\section{Rivalry, Security Competition, and Capacity Constraints}
+
+This paper sits at the intersection of three literatures: the security-dilemma and arms-race tradition in international relations, the technology-diffusion and policy-adoption literature in comparative politics, and the recent econometric work on staggered difference-in-differences estimation. Each strand contributes a distinct piece of the argument.
+
+\subsection{The Security Dilemma and Space Competition}
+
+The theoretical starting point is the security dilemma. In an anarchic system, states that seek only their own security can inadvertently threaten others, producing a spiral of competitive armament even when no side desires conflict \cite{jervis1978}. Jervis's offense--defense framework is especially relevant in space, where satellites are physically exposed, dual-use in function, and difficult to defend once attacked. If the offense--defense balance in orbit favors the attacker, the security dilemma becomes acute: even status-quo states may feel compelled to expand their space presence preemptively.
+
+Applied to the space domain, this logic generates a straightforward prediction: states should respond to observed increases in rival space capability by expanding their own orbital assets. Recent scholarship has elaborated this intuition. Harrison et al.\ \cite{harrison2017} document the growing entanglement of military and civilian functions in orbit and the resulting escalation risks. Townsend \cite{townsend2020} formalizes the ``orbital security dilemma,'' arguing that the difficulty of distinguishing offensive from defensive space operations amplifies misperception. Lele \cite{lele2019} examines the India--China space rivalry as a case study of security-dilemma dynamics in a dyadic setting. At the systemic level, the Pekkanen and Blount \cite{pekkanen2024} handbook provides a comprehensive survey of contemporary space security challenges, including deterrence, norms, and escalation management.
+
+The empirical picture is consistent with growing competition. Weeden and Samson \cite{weeden2024} document counterspace capability development across fourteen countries, showing that investment in technologies capable of threatening space assets has broadened well beyond the original superpowers. Lewis \cite{lewis2019} finds that satellite ownership is associated with state behavior during international crises, suggesting that space assets carry strategic weight beyond their technical function. Moltz \cite{moltz2019} provides a longer historical perspective, tracing cycles of military restraint and competition from the early space age to the present and emphasizing the role of governance norms in tempering purely competitive dynamics.
+
+Taken together, this literature makes a strong case that geopolitical rivalry generates incentives for states to expand space activity. What it tends to underspecify, however, is the \emph{capacity constraint}. The security-dilemma framework assumes that states can act on their strategic incentives. In practice, space capability is expensive, technically demanding, and organizationally complex. Not every state that perceives a threat is in a position to respond on the relevant margin.
+
+\subsection{Technology Diffusion, Adoption, and Capacity}
+
+A second literature addresses this gap. The technology-diffusion tradition---originating with Rogers's \cite{rogers2003} classic work on innovation adoption---treats the spread of new technologies as a process shaped by both external pressure and internal absorptive capacity. The central insight is that adoption is not automatic: it depends on resources, institutions, prior technological experience, and the availability of complementary inputs.
+
+In comparative politics and international political economy, this logic has been applied to the cross-national spread of policies and technologies. Berry and Berry \cite{berry1990} introduced event-history methods to study state-level policy adoption, showing that both internal determinants (fiscal health, political conditions) and external pressures (neighbor behavior, federal signals) jointly predict adoption timing. Simmons and Elkins \cite{simmons2004} extended this framework to international economic liberalization, demonstrating that policy diffusion operates through competitive pressures, learning, and cultural similarity among states. Their key finding---that external pressure matters but is conditional on domestic political and economic characteristics---maps directly onto the logic of this paper.
+
+At the level of technology itself, Comin and Hobijn \cite{comin2010} provide large-scale evidence that cross-country technology adoption lags are substantial (averaging 45 years) and are driven primarily by human capital, institutional quality, trade openness, and prior adoption of predecessor technologies. These findings reinforce the idea that capacity variables are not mere controls but central determinants of whether a state can act on external incentives.
+
+Applied to space, these perspectives suggest a clear distinction between the \emph{intensive margin} (how much activity a capable state undertakes) and the \emph{extensive margin} (whether a state enters a new technological domain at all). External rivalry may accelerate activity among states already possessing the relevant infrastructure, engineering teams, and institutional routines. But first entry into a high-cost domain like GEO should depend much more heavily on underlying capacity. That distinction is the core empirical expectation of this paper.
+
+\subsection{Staggered Difference-in-Differences and Treatment-Effect Heterogeneity}
+
+The third strand is methodological. The paper's main design is a staggered difference-in-differences framework, which raises well-known econometric challenges. The standard Two-Way Fixed Effects (TWFE) estimator has been shown to produce biased estimates when treatment effects are heterogeneous across cohorts or over time.
+
+Goodman-Bacon \cite{goodmanbacon2021} provides the foundational decomposition result: the TWFE estimator is a weighted average of all possible two-group, two-period DID comparisons, and some of those comparisons use already-treated units as controls, generating potentially negative weights. de~Chaisemartin and D'Haultf\oe uille \cite{dechaisemartin2020} formalize this concern, showing that the TWFE coefficient can have a different sign from every individual treatment effect if the weights are sufficiently heterogeneous. This means that a positive TWFE estimate does not guarantee that any cohort actually experienced a positive treatment effect.
+
+Several alternative estimators have been proposed to address these problems. Callaway and Sant'Anna \cite{callaway2021} develop a framework based on group-time average treatment effects that avoids forbidden comparisons by restricting the control group to not-yet-treated and never-treated units. Their approach allows flexible aggregation of treatment effects across cohorts and time periods. Sun and Abraham \cite{sunab2021} propose an interaction-weighted (IW) estimator that decomposes the event-study into cohort-specific components and aggregates them with proper weights. Roth et al.\ \cite{roth2023} provide a comprehensive review of the staggered-DID landscape, comparing the assumptions and performance of these estimators.
+
+This paper implements the Sun and Abraham \cite{sunab2021} estimator as its primary robustness check, motivated by the absorbing-state nature of the treatment (once a country experiences a rival-pressure jump, it remains ``treated''). The choice of SA over Callaway--Sant'Anna is primarily pragmatic: the \texttt{fixest} implementation of \texttt{sunab()} integrates cleanly with the existing estimation pipeline. The key diagnostic value of the SA estimator lies in its ability to produce clean event-study plots free from forbidden-comparison contamination, providing a more credible assessment of pre-trends and dynamic post-treatment effects.
+
+
+\section{Data and Empirical Strategy}
+The analysis draws on a country-year panel covering 176 countries from 1963 to 2024, built by merging four primary data sources: a global satellite catalog, a strategic rivalry dataset, a cross-national democracy index, and standard economic indicators. This section first describes the construction of the panel and key variables, then presents the empirical strategy.
+
+\subsection{Data Sources and Variable Construction}
+
+\subsubsection{Space activity data.}
+
+All satellite and launch data come from the General Catalog of Artificial Space Objects (GCAT), compiled and maintained by Jonathan C.\ McDowell at the Harvard--Smithsonian Center for Astrophysics \cite{mcdowell2020}. GCAT provides two files relevant to this study. The first is a catalog of objects that have entered the geostationary orbital region (\texttt{geotab}), which records 1,927 entries including orbital type classifications (GEO/ID, GEO/S, GEO/I, GEO/D, and related sub-categories), launch dates, and current orbital parameters. The second is a comprehensive launch log (\texttt{launchlog}) covering 28,662 launch events from 1957 to early 2026, which records the satellite owner, the owner's state, the launch vehicle, and the launch outcome.
+
+From these raw files I construct several country-year variables. The primary outcome, $n\_geo\_entries_{it}$, counts the number of new GEO satellite entries attributed to country $i$ in year $t$, where attribution is based on the satellite owner's state code. A binary indicator, $geo\_entry\_any_{it}$, equals one if the country recorded at least one GEO entry that year. For each country-year I also compute cumulative five-year payload counts ($payloads\_5yr\_owner_{it}$) and the country's share of global GEO payloads over the same rolling window ($payload\_share\_5yr\_owner_{it}$). The first year in which a country records any GEO entry defines its $first\_entry\_year_i$, used as the failure event in the supplementary Cox analysis. In the estimation sample, 36 countries have achieved at least one GEO entry, beginning with the United States in 1963 and most recently New Zealand in 2022.
+
+\subsubsection{Rivalry data.}
+
+Geopolitical rivalry is measured using the Strategic Rivalry dataset developed by Colaresi, Rasler, and Thompson \cite{colaresi2008}. This dataset identifies pairs of states engaged in strategic rivalries---sustained competitive relationships driven by positional or spatial disagreements---and provides start and end dates for each rivalry dyad. Countries are matched to the panel using Correlates of War (COW) country codes.
+
+For each country-year I compute $rival\_count\_active_{it}$, the number of active strategic rivals, and the key independent variable, $rivals\_share\_5yr\_owner_{it}$: the share of global GEO payloads over the preceding five years that are owned by country $i$'s active rivals. This variable captures the extent to which a country's strategic competitors are building up presence in geostationary orbit. In the panel, 102 of 176 countries have at least one active rivalry at some point during the sample period, with the maximum simultaneous rival count being 8. The rival-share variable is then rescaled to percentage points ($rivals\_pct_{it} = 100 \times rivals\_share\_5yr\_owner_{it}$) for the treatment-shock construction described below.
+
+\subsubsection{Democracy data.}
+
+Regime type is measured using the Electoral Democracy Index ($v2x\_polyarchy$) from the Varieties of Democracy (V-Dem) project \cite{vdem2024,coppedge2024}. This index ranges from 0 to 1, with higher values indicating more democratic governance. V-Dem provides annual coverage for virtually all sovereign states since the mid-twentieth century. In this panel, $v2x\_polyarchy$ has no missing values across the full 10,175 country-year observations.
+
+\subsubsection{Economic and demographic controls.}
+
+Economic and demographic variables are drawn from the World Bank's World Development Indicators (WDI) \cite{worldbank2024}. The specific variables used are: GDP in constant U.S.\ dollars ($gdp\_kd$; WDI series NY.GDP.MKTP.KD), total population ($pop\_total$; SP.POP.TOTL), military expenditure in current U.S.\ dollars ($mil\_exp\_cd$; MS.MIL.XPND.CD, originally sourced from the Stockholm International Peace Research Institute), military expenditure as a share of GDP ($mil\_exp\_gdp\_pct$; MS.MIL.XPND.GD.ZS), exports of goods and services as a share of GDP ($exports\_gdp\_pct$; NE.EXP.GNFS.ZS), and industry value added as a share of GDP ($industry\_gdp\_pct$; NV.IND.TOTL.ZS). GDP and population data are available for most country-years (91.2\% and 98.8\% coverage, respectively), while military expenditure and sectoral composition variables have somewhat lower coverage (74--77\%), primarily due to missing data for small states and conflict-affected countries in earlier decades.
+
+\subsubsection{Panel structure.}
+
+The merged panel contains 10,175 country-year observations spanning 176 countries and the years 1963--2024. Table~\ref{tab:summary} reports summary statistics for the key variables. The panel is unbalanced due to the creation of new states and differential data availability, but the core variables---GEO entries, rivalry measures, and the V-Dem index---have complete coverage across the full sample.
+
+\begin{table}[htbp]
+\centering
+\caption{Summary Statistics}
+\label{tab:summary}
+\small
+\begin{tabular}{lccccc}
+\hline
+Variable & $N$ & Mean & Std.\ Dev. & Min & Max \\
+\hline
+$n\_geo\_entries_{it}$                & 10{,}175 & 0.090 & 0.712 & 0 & 18 \\
+$geo\_entry\_any_{it}$               & 10{,}175 & 0.032 & 0.177 & 0 & 1 \\
+$rivals\_share\_5yr\_owner_{it}$      & 10{,}175 & 0.014 & 0.087 & 0 & 1.000 \\
+$rival\_count\_active_{it}$          & 10{,}175 & 0.736 & 1.250 & 0 & 8 \\
+$v2x\_polyarchy_{it}$               & 10{,}175 & 0.426 & 0.286 & 0 & 0.923 \\
+$\ln(\text{GDP})_{it}$              & 9{,}283  & 24.07 & 2.181 & 18.15 & 30.75 \\
+$\ln(\text{Population})_{it}$       & 10{,}056 & 15.77 & 1.765 & 10.72 & 21.10 \\
+$mil\_exp\_gdp\_pct_{it}$            & 7{,}540  & 2.66  & 3.21  & 0 & 117.4 \\
+$industry\_gdp\_pct_{it}$           & 7{,}566  & 27.53 & 11.86 & 0 & 86.67 \\
+\hline
+\end{tabular}
+\vspace{4pt}
+
+\footnotesize\textit{Notes:} Panel covers 176 countries, 1963--2024. GDP is in constant U.S.\ dollars; military expenditure shares and industry shares are percentages of GDP. The $rivals\_share$ variable ranges from 0 (no rival GEO presence) to 1.0 (rivals own all recent global GEO payloads).
+\end{table}
+
+\subsection{Baseline OLS specification}
+I begin with a descriptive panel model with year fixed effects:
+\begin{equation}
+ n\_geo\_entries_{it} = \beta \cdot rivals\_share\_5yr\_owner_{it} + X_{it}\Gamma + \lambda_t + \varepsilon_{it},
+\end{equation}
+where $i$ indexes countries and $t$ indexes years. The outcome is annual GEO entries. The key predictor is the rival-share measure over a five-year rolling window. Controls include logged GDP, logged population, and military expenditure. Standard errors are clustered by country.
+
+This model is descriptive, not causal. Its only job is to show the raw association in the panel before moving to the design-based part of the paper.
+
+\subsection{Main design: staggered rival-pressure jump DID}
+
+The paper's main empirical strategy is a staggered difference-in-differences design that examines whether an acute increase in rival pressure is followed by a change in the intensive margin of GEO activity. To operationalize this idea, I convert the continuous rival-pressure measure into a discrete treatment timing.
+
+Rival pressure, expressed in percentage points, is defined as:
+\begin{equation}
+    rivals\_pct_{it} = 100 \times rivals\_share\_5yr\_owner_{it}.
+\end{equation}
+
+To capture sudden shifts in the strategic environment rather than gradual drift, I define a treatment shock as the difference between the current level of rival pressure and its average over the preceding three years:
+\begin{equation}
+    jump_{it} = rivals\_pct_{it} - \frac{1}{3}\sum_{s=1}^{3} rivals\_pct_{i,t-s}.
+\end{equation}
+
+The treatment year, $T_i$, is defined as the first year in which a country experiences a substantive shock, operationalized as $jump_{it} \geq 0.2$ percentage points. The estimation sample is restricted to the 1970--2020 window and retains treated units with sufficient support for dynamic analysis, requiring at least five years of pre-treatment and five years of post-treatment observations. Under this restriction, the DID sample includes 29 treated countries and 143 never-treated controls.
+
+The dependent variable is the intensive margin of GEO activity, measured as
+\begin{equation}
+    y_{it} = \log(1 + n\_geo\_entries_{it}),
+\end{equation}
+where $n\_geo\_entries_{it}$ is the annual number of GEO entries recorded by country $i$ in year $t$. This transformation reduces the influence of extreme counts while preserving the distinction between zero-entry and positive-entry country-years.
+
+The baseline specification is a two-way fixed effects DID model of the form
+\begin{equation}
+    y_{it} = \alpha_i + \lambda_t + \beta D_{it} + \varepsilon_{it},
+\end{equation}
+where $D_{it} = \mathbb{1}[t \geq T_i]$ for treated countries and $0$ otherwise, $\alpha_i$ are country fixed effects, and $\lambda_t$ are year fixed effects. Standard errors are clustered at the country level. The identifying comparison is therefore within-country change after a rival-pressure jump relative to the contemporaneous evolution of not-yet-treated or never-treated units.
+
+Because treatment timing is staggered across cohorts, I also estimate an event-study specification in relative event time. This serves two purposes: first, it allows the post-treatment effect to vary dynamically rather than forcing it into a single average shift; second, it provides a diagnostic for whether treated units exhibit differential movements in the periods immediately prior to treatment.
+
+At the same time, conventional TWFE estimators are known to be problematic in staggered-adoption settings when treatment effects are heterogeneous across cohorts or over time. As shown by \citet{goodmanbacon2021}, the TWFE coefficient is a weighted average of many underlying $2\times2$ DID comparisons, while \citet{dechaisemartin2020} and \citet{sunab2021} show that some of these comparisons may be contaminated by already-treated units serving as controls for later-treated units. Such contamination can distort both the overall ATT and, especially, the dynamic event-study coefficients.
+
+For that reason, the baseline TWFE results are supplemented with the interaction-weighted estimator proposed by \citet{sunab2021}. The Sun--Abraham approach restricts comparisons to valid not-yet-treated or never-treated control groups and then aggregates cohort-specific treatment effects in a way that avoids the forbidden-comparison problem. In this paper, the SA estimator serves as the primary robustness check for the main DID design and as the preferred benchmark for evaluating dynamic treatment effects under staggered adoption.
+
+\subsection{Supplementary design: Cox model of first GEO entry}
+
+The final empirical piece shifts the analytical focus from the intensive margin of ongoing space operations to the extensive margin of threshold adoption. Instead of annual launch intensity, I model the timing of a country's first GEO entry using a Cox proportional hazards model with one failure per country. 
+
+Conceptually, in a capital-intensive and high-technology domain like space exploration, this initial breakthrough is arguably the most critical milestone. Transitioning from zero to one GEO asset is not simply a matter of scaling up existing policies; it requires a state to overcome massive fixed costs and foundational technological hurdles. To achieve a first GEO entry, a country must either develop or procure heavy-lift launch capabilities, establish global telemetry and tracking networks, and sink enormous financial resources into acquiring a highly exclusive strategic technology for the very first time. Therefore, the aim here is fundamentally different: it is not to ask whether rivalry shifts the frequency of annual activity among already-capable states, but whether acute rival pressure is strong enough to trigger and predict this monumental initial investment.
+
+To evaluate this, the survival setup includes 176 countries, 9,278 country-year observations, and 36 failures (first entries). The key predictor remains the rival-pressure proxy. However, this poses a much harder and more rigorous test for the standard arms-race narrative. If the baseline rivalry effect disappears once basic economic and industrial capacity controls are added, that is not merely an annoying statistical side issue. It theoretically implies that the fundamental state decision to cross the initial GEO threshold is primarily governed by domestic economic readiness and underlying technological maturity, rather than being a reflexive reaction to acute external pressure.
+
+\section{Baseline OLS Results}
+
+Table \ref{tab:ols_incremental} presents the baseline OLS specification with year fixed effects, where the outcome is the annual number of GEO entries, $n\_geo\_entries_{it}$. The coefficient on $rivals\_share\_5yr\_owner$ is positive and statistically significant at conventional levels. Substantively, the estimate implies that a one-unit increase in the five-year rival-share measure is associated with approximately 1.281 additional GEO entries in a given country-year, with a clustered standard error of 0.584. This is a sizeable association in the context of an annual count outcome and is consistent with the basic expectation that higher levels of rival activity are associated with greater GEO activity of a state's own.
+
+The other covariates show a mixed but interpretable pattern. Logged population enters positively and significantly, suggesting that larger countries tend to record more GEO entries, all else equal. Military expenditure is also strongly positive, which is consistent with the view that high-orbit activity depends in part on broader state capacity and resource commitment. By contrast, logged GDP is close to zero and statistically insignificant in this specification. One plausible interpretation is that once population size, military expenditure, and common year shocks are taken into account, aggregate economic size alone does not explain much additional variation in annual GEO entry counts. Put differently, the baseline relationship appears to be more closely connected to strategic and organizational capacity than to GDP in a generic sense.
+
+At the same time, these estimates should be interpreted with appropriate caution. The specification includes year fixed effects, which absorb shocks common to all countries in a given year, but it does not by itself identify a causal effect of rival pressure on GEO activity. The positive coefficient on the rival-share measure may still reflect omitted time-varying confounders, reverse causality, or broader patterns of geopolitical competition that affect both rival activity and a country's own orbital behavior. Accordingly, Table \ref{tab:ols_incremental} should be understood as establishing a descriptive baseline rather than a causal result.
+
+I also do not include country fixed effects in this baseline specification. That choice is deliberate and follows the limited role assigned to the OLS table in the overall empirical strategy. The purpose of Table \ref{tab:ols_incremental} is to summarize the broad descriptive association in the country-year panel, net of common year shocks, before turning to the more demanding within-country identification strategy in the staggered DID design. Including country fixed effects at this stage would substantially narrow the estimand to within-country deviations around country-specific means and would absorb much of the cross-sectional variation that is substantively relevant for a first-pass descriptive comparison. This is especially important in a sparse outcome setting like GEO entry, where annual counts are zero for most country-years and meaningful within-country variation is concentrated in a relatively small subset of states. For that reason, the baseline OLS is kept intentionally simple, while the paper's stronger fixed-effects logic is reserved for the main design. In that sense, the omission of country fixed effects here should not be read as a claim that persistent cross-national differences are unimportant; rather, it reflects the narrower descriptive purpose of the baseline table.
+
+That baseline is nevertheless informative. The positive association indicates that the rivalry measure is not merely noise or an empty proxy: it captures meaningful variation in the raw country-year panel that is systematically related to observed GEO activity. This makes it a useful starting point for the subsequent analysis. The purpose of the more demanding identification strategies introduced in the next sections is therefore not to manufacture a relationship where none exists, but to assess whether this descriptive association survives under designs better suited to causal interpretation.
+
+\begin{table}[htbp]
+\centering
+\caption{Baseline OLS Results: Incremental Specifications}
+\label{tab:ols_incremental}
+\begin{threeparttable}
+\small
+\setlength{\tabcolsep}{9pt}
+\renewcommand{\arraystretch}{1.15}
+
+\begin{tabular}{lcccc}
+\toprule
+& \multicolumn{4}{c}{Dependent variable: Annual GEO entries} \\
+\cmidrule(lr){2-5}
+& (1) & (2) & (3) & (4) \\
+\midrule
+Rival share (5-year window) 
+    & 4.277\sym{***} & 3.668\sym{***} & 3.604\sym{***} & 1.281\sym{**} \\
+    & (1.602)        & (1.342)        & (1.344)        & (0.584)        \\
+\addlinespace
+Log GDP
+    &                & 0.0872\sym{*}  & 0.0714         & -0.0030        \\
+    &                & (0.0469)       & (0.0457)       & (0.0138)       \\
+\addlinespace
+Log population
+    &                &                & 0.0310\sym{**} & 0.0288\sym{**} \\
+    &                &                & (0.0133)       & (0.0111)       \\
+\addlinespace
+Military expenditure (bn USD)
+    &                &                &                & 0.0132\sym{***} \\
+    &                &                &                & (0.000567)      \\
+\midrule
+Year fixed effects & Yes & Yes & Yes & Yes \\
+Observations       & 7,570 & 7,570 & 7,570 & 7,570 \\
+$R^2$              & 0.174 & 0.220 & 0.222 & 0.639 \\
+\bottomrule
+\end{tabular}
+
+
+
+\begin{tablenotes}[flushleft]
+\footnotesize
+\item \textit{Notes:} This table reports baseline OLS estimates of the association between rival pressure and annual GEO entry counts. The dependent variable is the annual number of GEO entries recorded by country $i$ in year $t$. All specifications include year fixed effects, and standard errors clustered at the country level are reported in parentheses. Columns (1)--(4) add controls sequentially: log GDP, log population, and military expenditure. Military expenditure is measured in billions of current U.S. dollars. The estimation sample is held constant across specifications for comparability. These estimates are descriptive and should not be interpreted causally.
+\item \sym{*} $p<0.10$, \sym{**} $p<0.05$, \sym{***} $p<0.01$.
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+Table \ref{tab:ols_incremental} also helps clarify how the baseline association changes as standard controls are added sequentially. The ordering of controls is intentional. Column (1) reports the bivariate association between rival pressure and annual GEO entries with year fixed effects only. Columns (2) and (3) then add log GDP and log population, which capture broad differences in economic scale and demographic size across country-years. Column (4) finally adds military expenditure, which is conceptually closer to the strategic and organizational capacity likely to matter for high-orbit activity. Read this way, the sequence moves from a sparse descriptive specification toward a more demanding baseline model that absorbs progressively more plausible sources of confounding.
+
+This progression is informative because the coefficient on the rival-share measure declines as controls are introduced, falling from 4.277 in column (1) to 1.281 in column (4), but it remains positive and statistically significant in the fully controlled specification. That pattern suggests that part of the raw association is indeed accounted for by differences in country size and resource endowments, but not all of it. The rivalry variable therefore appears to capture more than a simple proxy for overall scale alone.
+
+The change in model fit tells a similar story. The $R^2$ rises only modestly when moving from columns (1) to (3), but increases sharply in column (4) once military expenditure is included. Substantively, this suggests that military spending absorbs a large share of the variation in annual GEO entry counts that is left unexplained by the earlier specifications. That result is consistent with the broader argument of the paper: GEO activity is shaped not only by external rivalry, but also by underlying state capacity. At the same time, this should not be overinterpreted as a causal claim about military expenditure itself. In this context, the variable is best understood as a broad proxy for strategic resource capacity rather than as an independently identified driver.
+
+\section{Main DID Results}
+
+\subsection{Treatment Cohort Overview}
+
+Before presenting the regression estimates, it is useful to describe the structure of the treatment itself. Figure~\ref{fig:cohort_dist} displays the distribution of treatment cohorts across the 1970--2020 estimation window. Of the 29 treated units that satisfy the minimum support requirements (at least five years of pre- and post-treatment data), the largest cluster enters treatment in the mid-1990s, with five countries experiencing their first rival-pressure jump in 1996 alone. A second wave of treatment occurs in the late 2000s and early 2010s. The intervening period from the mid-1980s to the early 1990s is notably sparse, with few countries crossing the 0.2 percentage-point threshold during the final years of the Cold War.
+
+This temporal pattern is substantively interpretable. The mid-1990s cluster likely reflects the rapid restructuring of the global space landscape following the dissolution of the Soviet Union: as Russia's share of GEO payloads shifted and China expanded its orbital presence, numerous countries experienced sudden increases in the share of GEO assets held by their strategic rivals. The later wave corresponds to the emergence of new space-capable states and the intensification of regional rivalries in Asia and the Middle East. The staggering of treatment across four decades, rather than concentration in a single period, is important for the identification strategy: it ensures that the TWFE estimate is not driven by a single historical episode and that the Sun--Abraham estimator has sufficient variation in cohort timing to decompose treatment effects meaningfully.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{cohort_distribution.png}
+    \caption{Distribution of treatment cohorts. Each bar represents the number of countries experiencing their first rival-pressure jump ($\geq 0.2$ percentage points) in a given year. The 29 treated units span from 1976 to 2014.}
+    \label{fig:cohort_dist}
+\end{figure}
+
+
+\subsection{Static Treatment Effect}
+
+The central empirical question of this paper is whether a discrete increase in geopolitical rival pressure causes a measurable change in the intensive margin of GEO activity. The staggered difference-in-differences design addresses this by comparing the trajectory of logged annual GEO entries for countries that experience a rival-pressure jump against the trajectory of countries that do not, conditioning on country and year fixed effects. The estimand is not whether rivalry explains entry into GEO in an absolute sense, but whether countries exposed to a discrete strategic shock subsequently increase GEO activity relative to appropriate comparison units. This framing is deliberately narrow. It is better aligned with the paper's core theoretical claim---that rivalry should matter more for escalation among already capable actors than for threshold entry itself---and it avoids conflating the intensive and extensive margins of space competition.
+
+The baseline TWFE specification yields a positive and statistically significant post-treatment coefficient:
+\begin{equation}
+ \hat{\beta} = 0.0611 \quad (SE = 0.0261,\; p = 0.0205).
+\end{equation}
+Because the dependent variable is $\log(1+n\_geo\_entries)$, this coefficient should be interpreted as a proportional shift rather than a level change. An approximate calculation yields $e^{0.0611}-1 \approx 6.3\%$, suggesting that a rival-pressure shock increases GEO entry intensity by roughly 6.3 percent---a small but non-trivial effect. The modesty of this estimate is part of what makes it credible. GEO satellite programs involve multi-year procurement cycles, complex engineering, and substantial fixed costs. A small positive response to a rivalry shock is far more plausible than a large one, and the coefficient's magnitude is consistent with the interpretation that rivalry operates as an accelerant on pre-existing capabilities rather than as a trigger for entirely new programs.
+
+To place this result in context, consider what a larger coefficient would imply. If $\hat{\beta}$ were on the order of 0.3 or 0.5, it would suggest that a single year's spike in rival pressure roughly doubles or triples a country's GEO activity. That would be implausible given the long lead times involved in satellite procurement and launch scheduling. The estimated effect of 0.06 is more consistent with the idea that rivalry shocks shift the timing or priority of missions that were already in the pipeline---an interpretation that aligns with how defense procurement actually works in practice.
+
+
+\subsection{Event-Study Dynamics}
+
+The static DID coefficient summarizes the average post-treatment effect, but it conceals important information about the temporal structure of the response. The event-study specification decomposes the treatment effect into period-specific coefficients relative to the treatment year, providing two critical diagnostics: the dynamic trajectory of the post-treatment response and a check for differential pre-trends.
+
+Figure~\ref{fig:means} plots pre-normalized event-time means for the treated cohorts, computed by demeaning each unit's outcome series by its pre-treatment average. In the pre-treatment window ($t < 0$), the series fluctuates tightly around zero, indicating no systematic drift in GEO activity prior to the rival-pressure shock. Following treatment, the series rises noticeably in the first few post-treatment periods, peaking around $t+2$ to $t+3$ before partially reverting. This hump-shaped trajectory is substantively plausible: it suggests that countries respond to a rivalry shock with a lag of one to three years, consistent with the time required to accelerate procurement decisions, secure launch slots, and bring planned missions forward in the schedule.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.72\textwidth]{page4_chart_only.png}
+    \caption{Pre-normalized event-time means for treated cohorts. The outcome is $\log(1+n\_geo\_entries)$, demeaned by the pre-treatment average (periods $-5$ to $-1$). The vertical dashed line marks the treatment year.}
+    \label{fig:means}
+\end{figure}
+
+Figure~\ref{fig:eventstudy} reports the formal TWFE event-study regression, estimating separate coefficients for each event-time period relative to $t=-1$ (the omitted reference period). The pre-treatment coefficients in the near-term window ($t=-5$ to $t=-2$) cluster around zero, while several post-treatment coefficients are positive. The pattern is broadly consistent with the static estimate: there is no visually obvious pre-trend in the near-term window, and the positive effect appears concentrated in the first few years after treatment.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{page5_eventstudy_only.png}
+    \caption{TWFE event-study for rival-pressure treatment. Coefficients are estimated relative to $t=-1$. The dependent variable is $\log(1+n\_geo\_entries)$. Error bars represent 95\% confidence intervals based on country-clustered standard errors.}
+    \label{fig:eventstudy}
+\end{figure}
+
+
+\subsection{Pre-Trend Diagnostics}
+
+The credibility of any difference-in-differences design rests heavily on the parallel trends assumption: in the absence of treatment, treated and control units would have followed similar outcome trajectories. While this assumption is fundamentally untestable, the standard diagnostic is to examine whether the pre-treatment event-study coefficients are jointly indistinguishable from zero.
+
+A formal Wald test of the pre-treatment leads $\{-5,-4,-3,-2\}$ yields:
+\begin{equation}
+ H_0: \beta_{-5} = \beta_{-4} = \beta_{-3} = \beta_{-2} = 0,
+\end{equation}
+with $\chi^2(4) = 0.220$ and $p = 0.928$ under country-clustered standard errors. The test decisively fails to reject the null, providing no evidence that treated units were on a differential trajectory prior to the rival-pressure shock.
+
+This result is reassuring, but three caveats apply. First, the Wald test has limited statistical power with only 29 treated units spread across multiple cohorts. The failure to reject could reflect genuine parallel trends or simply insufficient power to detect moderate violations. Second, the test covers only a five-year pre-treatment window; violations at longer horizons would not be detected. Third, and most importantly, the standard TWFE event-study is itself subject to the contamination problems identified in the recent staggered-DID literature. As Goodman-Bacon \cite{goodmanbacon2021} and Sun and Abraham \cite{sunab2021} demonstrate, when treatment effects are heterogeneous across cohorts, the TWFE event-study coefficients can be distorted by ``forbidden comparisons'' in which already-treated units serve as implicit controls for later-treated units. For this reason, the TWFE pre-trend diagnostics should be treated as a necessary but not sufficient condition for the design's validity. 
+
+\subsection{Placebo Test}
+
+A natural concern with any difference-in-differences estimate is that the result could be an artifact of the particular treatment assignment rather than a genuine causal effect. To address this, I conduct a permutation-based placebo test. In each of 1,000 iterations, I randomly reassign treatment status to a set of 29 countries drawn from the full estimation sample, preserving the empirical distribution of cohort years but breaking any systematic link between treatment assignment and the actual rival-pressure variable. For each permuted sample, I re-estimate the baseline TWFE DID specification and record the placebo coefficient.
+
+Figure~\ref{fig:placebo} displays the distribution of placebo estimates alongside the actual estimate. The placebo distribution is centered slightly below zero (mean $\approx -0.005$) and is approximately symmetric, consistent with the expectation that random treatment assignment should produce null effects on average. The actual estimate of $\hat{\beta} = 0.0611$ falls in the far right tail of the distribution: only 16 of 1,000 placebo estimates exceed the actual value, yielding a permutation $p$-value of 0.016. This provides strong non-parametric evidence that the observed treatment effect is unlikely to have arisen by chance.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{placebo_permutation.png}
+    \caption{Placebo permutation test. The histogram shows the distribution of DID coefficients from 1,000 random reassignments of treatment status. The vertical red line marks the actual estimate ($\hat{\beta} = 0.0611$). Permutation $p$-value = 0.016.}
+    \label{fig:placebo}
+\end{figure}
+
+The permutation test complements the regression-based inference in an important way. The clustered standard errors used in the main specification rely on asymptotic approximations that may perform poorly with only 29 treated clusters. The permutation test provides a useful non-parametric complement to the regression-based inference, especially in a setting with only 29 treated clusters and potentially noisy asymptotic approximations. The fact that both approaches yield similar significance levels ($p = 0.0205$ from the regression, $p = 0.016$ from the permutation test) provides additional confidence that the main result is not driven by a small number of influential observations or by the particular structure of the clustered variance estimator.
+
+
+\subsection{Treatment Effect Heterogeneity by Capacity}
+
+The theoretical framework of this paper predicts that rivalry should matter more for states that already possess the institutional and industrial capacity to respond to strategic pressure. The aggregate DID estimate pools all treated units regardless of their pre-existing capabilities, potentially masking important heterogeneity. To test the capacity-conditioning hypothesis directly, I split the treated sample along two dimensions: pre-treatment economic size (measured by the median of ln GDP in the five years before treatment) and pre-treatment space activity (whether the country had any satellite payloads in the five years before treatment).
+
+Figure~\ref{fig:heterogeneity} presents the results. The heterogeneity pattern is suggestive and broadly consistent with the theoretical expectation, though the subgroup estimates are necessarily imprecise given the small number of treated units. Among high-GDP treated units, the estimated effect is approximately $\hat{\beta} \approx 0.12$, roughly double the full-sample estimate, though imprecisely estimated due to the reduced sample size. Among low-GDP treated units, the coefficient drops to near zero ($\hat{\beta} \approx 0.00$), indicating that economically smaller countries do not respond to rival-pressure shocks with increased GEO activity. The split by prior space activity is even more pronounced: countries with prior satellite experience exhibit a large positive effect ($\hat{\beta} \approx 0.20$), while countries without prior space activity show an effect close to zero.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.92\textwidth]{heterogeneity_capacity.png}
+    \caption{Treatment effect heterogeneity by pre-treatment capacity. Each row reports the DID coefficient from a separate regression restricted to the indicated subgroup (plus all never-treated controls). Error bars represent 95\% confidence intervals based on country-clustered standard errors.}
+    \label{fig:heterogeneity}
+\end{figure}
+
+This finding has several implications. First, it provides direct empirical support for the paper's core claim that rivalry and capacity operate on different margins. The aggregate effect of 0.06 is not a uniform response across all treated units; rather, it is driven almost entirely by the subset of countries with pre-existing space capabilities and sufficient economic resources. Countries without these prerequisites experience rival-pressure shocks but cannot translate them into increased orbital activity. Second, the heterogeneity pattern helps reconcile the DID results (where rivalry appears to matter) with the Cox results presented in Section~\ref{sec:cox} (where rivalry loses significance once capacity controls enter). The Cox model examines the extensive margin---whether a country enters GEO at all---where capacity constraints are most binding. The DID model examines the intensive margin among countries that are, by construction, already active or close to active. The fact that even within the DID sample, the effect is concentrated among the most capable units reinforces the conclusion that rivalry is a conditional accelerant rather than an independent cause.
+
+Third, the heterogeneity results provide a substantive check against a potential confound. One might worry that the rival-pressure jump is simply a proxy for being a ``more important'' country---one that would have increased GEO activity regardless of rivalry, perhaps because of secular trends in technology diffusion or economic growth. But if that were the case, the effect should appear across both high- and low-capacity subgroups (or at least not be restricted so sharply to the high-capacity group). The fact that the effect is concentrated among capable states is more consistent with a rivalry mechanism than with a generic country-importance story.
+
+
+\subsection{Interpreting the Magnitude}
+
+Translating the DID coefficient into substantively meaningful terms requires attention to the structure of the dependent variable. The outcome $\log(1+n\_geo\_entries)$ compresses the count data and is approximately linear near zero. For the majority of country-years in the panel, $n\_geo\_entries = 0$; the unconditional mean is just 0.09, and only 3.2\% of country-years record any GEO entry at all. In this context, a coefficient of 0.061 in log terms corresponds to an increase of approximately 6.3\% in $(1+n\_geo\_entries)$---a small absolute increment given the low baseline, but a proportionally meaningful one for countries already active in the GEO domain.
+
+The interpretation is best understood at the level of the treated subgroup rather than the full panel. Among countries with prior space activity, the effect is roughly three times larger ($\hat{\beta} \approx 0.20$), implying an increase of approximately $e^{0.20}-1 \approx 22\%$ in GEO entry intensity following a rival-pressure shock. For a country that typically launches one or two GEO satellites per year, this translates to an additional satellite every four to five years directly attributable to the rivalry mechanism. That is a modest but policy-relevant effect: it implies that geopolitical competition is detectable in the procurement decisions of spacefaring states, even after conditioning on country and year fixed effects.
+
+This interpretation is also consistent with the structure of the treatment itself. The rival-pressure jump threshold (0.2 percentage points relative to a three-year baseline) captures a relatively modest shift in the strategic environment. It is deliberately calibrated to generate enough treated units for statistical analysis while still representing a meaningful departure from the recent baseline. The treatment captures the \emph{onset} of heightened competitive pressure, not its peak---and the estimated response is correspondingly moderate.
+
+
+
+\section{Robustness Check: Staggered DID and Heterogeneous Treatment Effects}
+\label{sec:robustness}
+
+While the baseline Two-Way Fixed Effects (TWFE) results indicate a positive effect of rival-pressure jumps on GEO entry intensity, recent econometric literature has raised important concerns about the reliability of TWFE estimators under staggered treatment timing and heterogeneous treatment effects \citep{roth2023}. The core issue is that the TWFE estimator implicitly constructs a weighted average of all possible two-group, two-period comparisons, including ``forbidden comparisons'' in which already-treated units serve as controls for later-treated units. When treatment effects evolve dynamically---as one would expect when satellite procurement responds to rivalry shocks with variable lags---these comparisons can receive negative weights, distorting both the aggregate coefficient and the event-study profile \citep{goodmanbacon2021, dechaisemartin2020}. This section addresses the issue directly by implementing the Interaction-Weighted (IW) estimator of Sun and Abraham \cite{sunab2021} and conducting additional sensitivity checks.
+
+
+\subsection{Static DID Comparison: TWFE vs.\ Sun--Abraham}
+
+The Sun--Abraham estimator addresses the negative-weighting problem by interacting cohort indicators with relative-time indicators and aggregating the resulting estimates using the empirical share of each cohort as weights. Unlike TWFE, which can assign negative weights when treatment effects vary across cohorts, the IW estimator uses only ``clean'' comparisons---each treated cohort is compared exclusively against not-yet-treated and never-treated units. The aggregated ATT is therefore a convex combination of cohort-specific effects, interpretable as a properly weighted average causal effect on the treated.
+
+Table~\ref{tab:twfe_vs_sa} compares the static ATT from both estimators. The estimation sample consists of 8,211 country-year observations spanning 1970--2020, with 29 treated units satisfying the minimum support requirements (at least five years of pre- and post-treatment data) and approximately 143 never-treated controls.
+
+\begin{table}[htbp]
+\centering
+\caption{Comparison of TWFE and Sun--Abraham (IW) Estimators}
+\label{tab:twfe_vs_sa}
+\begin{tabular}{lcccc}
+\hline
+Estimator & Coefficient ($\hat{\beta}$) & Std.\ Error & $t$-value & $p$-value \\
+\hline
+TWFE (Baseline) & 0.0611 & 0.0261 & 2.339 & 0.0205 \\
+Sun--Abraham (IW) & 0.0614 & 0.0360 & 1.708 & 0.0894 \\
+\hline
+\end{tabular}
+\parbox{0.85\textwidth}{\small \textit{Notes:} The dependent variable is $\log(1 + n\_geo\_entries)$. Both specifications include country and year fixed effects. Standard errors are clustered at the country level. The SA estimate is aggregated across all post-treatment periods using the IW weights from \cite{sunab2021}.}
+\end{table}
+
+The results are reassuring on two dimensions. First, the SA estimate ($\hat{\beta}_{SA} = 0.0614$) is virtually identical to the TWFE estimate ($\hat{\beta}_{TWFE} = 0.0611$), differing by less than 0.5\%. This near-equivalence indicates that the negative-weighting bias does not materially affect the aggregate estimate. Mechanically, this occurs because the problematic comparisons, while individually extreme, carry very small weights in the overall TWFE average.
+
+Second, the standard error increases from 0.0261 to 0.0360, reflecting the efficiency cost of discarding forbidden comparisons and using a more conservative variance estimator. The $p$-value accordingly rises from 0.0205 to 0.0894, but the SA estimate remains significant at the 10\% level. The widening confidence interval reflects a more honest accounting of the uncertainty inherent in a staggered design with 29 treated clusters, not instability in the point estimate itself.
+
+
+\subsection{Event-Study Dynamics and Pre-Trend Tests}
+
+The primary advantage of the Sun--Abraham estimator lies in its ability to recover uncontaminated dynamic event-study parameters. As highlighted in recent literature, conventional TWFE event-studies can produce spurious pre-trends and distorted post-treatment lags due to heterogeneous treatment-effect paths across cohorts. By constructing cohort-specific effects using only valid control groups before aggregation, the SA estimator provides a rigorous validation of the parallel trends assumption.
+
+Figure~\ref{fig:event_study_sa} plots the dynamic event-study coefficients over the $[-5, +5]$ window using the Sun--Abraham estimator. In the pre-treatment period ($t = -5$ to $t = -2$, relative to the omitted $t = -1$), the coefficients are virtually zero and exhibit a strikingly flat trajectory. This lack of pre-treatment divergence provides strong visual confirmation that prior to the rivalry shock, treated and control units were on parallel paths.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{event_study_sa_only.png}
+\caption{Dynamic event-study using the Sun--Abraham (IW) estimator. Coefficients are estimated relative to $t = -1$. Error bars represent 95\% confidence intervals with country-clustered standard errors.}
+\label{fig:event_study_sa}
+\end{figure}
+
+Formally, a joint Wald test for the nullity of all SA pre-treatment coefficients at periods $\{-5, -4, -3, -2\}$ yields $\chi^2(4) = 0.663$ with $p = 0.999$. This yields no evidence of differential pre-treatment trends in the observed event window once the Sun--Abraham estimator is used.
+
+In the post-treatment window, the SA profile reveals a delayed but distinctly positive response. The treatment effect is relatively muted immediately upon the shock ($t = 0$), but gradually builds up over time, becoming more pronounced by $t = +3$ and maintaining an upward trajectory through $t = +4$ and $t = +5$. This gradual buildup is highly consistent with the theoretical and practical expectations of the space industry: satellite procurement, manufacturing, and launch scheduling operate on rigid, multi-year timelines. Consequently, the full materialization of a state's response to an acute rivalry shock requires several years to be observed in actual GEO entries.
+
+
+\subsection{Leave-One-Cohort-Out Sensitivity}
+\label{sec:loco}
+
+A natural concern is whether the aggregate result is driven by the idiosyncratic experience of a single treatment cohort. To test this, I re-estimate the baseline TWFE specification 15 times, each time dropping all units from one cohort. Figure~\ref{fig:loco} displays the results.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{leave_one_cohort_out.png}
+\caption{Leave-one-cohort-out sensitivity. Each point shows the TWFE DID coefficient when the indicated treatment cohort is excluded. The red line marks the full-sample estimate ($\hat{\beta} = 0.0611$). Error bars represent 95\% confidence intervals with country-clustered standard errors.}
+\label{fig:loco}
+\end{figure}
+
+The coefficient remains positive in every specification and varies within a narrow band around the full-sample estimate (approximately 0.045 to 0.070). No single cohort's exclusion drives the estimate to zero or reverses its sign. The largest variation occurs when the 1996 cohort ($n = 5$, the largest) or the 1984 cohort is dropped, which is expected given that removing more treated units mechanically shifts the point estimate. The stability across these jackknife samples provides strong evidence that the finding is not an artifact of any particular group of countries.
+
+
+\subsection{Treatment Threshold Sensitivity}
+\label{sec:threshold}
+
+The baseline specification defines treatment as the first year in which a country's rival-pressure index jumps by $\Delta \geq 0.2$ percentage points. This threshold is a researcher-chosen parameter, and the results should not depend critically on this particular cutoff. I re-estimate both TWFE and SA under alternative thresholds $\Delta \in \{0.10, 0.15, 0.20, 0.25, 0.30\}$.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{threshold_sensitivity.png}
+\caption{Treatment threshold sensitivity. Each pair of points shows the TWFE and SA coefficients under the indicated threshold. The number of treated units decreases from $n = 39$ at $\Delta = 0.10$ to $n = 22$ at $\Delta = 0.30$. Error bars represent 95\% confidence intervals.}
+\label{fig:threshold}
+\end{figure}
+
+Figure~\ref{fig:threshold} shows that both estimators remain positive across all thresholds and track each other closely. The point estimates increase slightly at higher thresholds (from approximately 0.04--0.05 at $\Delta = 0.10$ to 0.07--0.08 at $\Delta = 0.30$), consistent with the theoretical prediction that a larger rivalry shock should elicit a stronger response. Confidence intervals widen at higher thresholds as the treated sample shrinks, but the qualitative conclusion is unchanged. The TWFE and SA estimates never diverge meaningfully at any threshold, further confirming that negative-weighting bias is not a serious concern in this setting.
+
+
+\bigskip
+\noindent\textit{Summary.} Across four robustness dimensions---Sun--Abraham estimation, event-study purging, leave-one-cohort-out sensitivity, and threshold variation---the central finding remains intact. The effect of rival-pressure shocks on GEO entry intensity is not an artifact of negative weighting in the TWFE estimator, is not driven by any single treatment cohort, and is not sensitive to the particular threshold used to define treatment. The SA estimator confirms that the parallel trends assumption is well supported once forbidden-comparison contamination is removed, and that the dynamic treatment-effect path is consistent with the multi-year lags implied by satellite procurement timelines.
+
+
+
+\section{Supplementary Cox Results on First GEO Entry}
+\label{sec:cox}
+
+The DID design examines the intensive margin---whether countries increase GEO deployment after a rival-pressure shock. This section asks a different question: whether rivalry affects the \emph{extensive} margin, i.e., the timing of first entry into the GEO domain. The theoretical framework predicts that rivalry should operate primarily as an accelerant on pre-existing capabilities, not as a trigger for new space programs. If correct, the rivalry effect should be weaker on the extensive margin, where capacity constraints bind most tightly.
+
+I estimate a Cox proportional hazards model with single-failure-per-country structure. Each country enters the risk set at the beginning of the panel and exits upon first GEO deployment or is right-censored. The setup comprises 176 countries, 9,278 country-year observations, and 36 failures. Standard errors are clustered at the country level.
+
+
+\subsection{From Strong Association to Null: The Role of Capacity Controls}
+
+Figure~\ref{fig:km} presents Kaplan-Meier survival curves stratified by rivalry exposure. Countries are classified using their \emph{maximum observed} \texttt{rivals\_share\_pct} over the full panel---an ever-exposure measure that captures the highest competitive pressure each country ever faced, regardless of when it occurred. Countries with a maximum of zero throughout the entire observation window are assigned to the ``no rivalry exposure'' group ($n = 130$). Among ever-exposed countries, those below the median of the positive-exposure distribution are classified as ``low rivalry'' ($n = 23$), and those at or above that median as ``high rivalry'' ($n = 23$). This grouping is time-invariant by construction and is used only for the unconditional KM comparison; all regression models use the continuous, time-varying rival-share measure.
+
+The separation across groups is visually dramatic: high-rivalry countries enter GEO at roughly twice the rate of unexposed countries (log-rank $p = 0.0068$). However, this unconditional comparison is confounded---countries with high rivalry exposure tend to be large, developed, and industrially diversified.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{km_survival_rivalry_full.png}
+\caption{Kaplan-Meier survival curves by rivalry exposure. High-rivalry countries (blue) show markedly faster GEO entry, but this pattern is confounded by national capacity. Log-rank $p = 0.0068$.}
+\label{fig:km}
+\end{figure}
+
+Table~\ref{tab:cox} documents what happens when capacity controls enter. The bivariate hazard ratio of 18.92 ($p = 0.002$) collapses to 0.993 ($p = 0.621$) once industry share and population are included---a drop of over 99\%. Across all controlled specifications, the stable predictors are capacity variables (industry/GDP and logged population), not rivalry.
+
+\begin{table}[H]
+\centering
+\caption{Cox Proportional Hazard Models for First GEO Entry}
+\label{tab:cox}
+\begin{tabular}{clccl}
+\toprule
+Model & Specification & Rival HR & $p$-value & Key controls \\
+\midrule
+(1) & Bivariate & 18.92 & 0.002 & --- \\
+(2) & + $\ln(\text{GDP})$ & 3.47 & 0.305 & $\ln(\text{GDP})$: sig. \\
+(3) & Full controls & 0.993 & 0.621 & Industry/GDP, $\ln$(pop): sig. \\
+(4) & + Military burden & 0.908 & 0.149 & Industry/GDP, $\ln$(pop): sig. \\
+\bottomrule
+\end{tabular}
+\parbox{0.85\textwidth}{\small \textit{Notes:} 176 countries, 9,278 observations, 36 failures. Standard errors clustered by country. Model (3) includes \texttt{rivals\_share\_pct}, \texttt{industry\_gdp\_pct}, and $\ln(\text{pop})$. Model (4) adds \texttt{mil\_exp\_gdp\_pct}.}
+\end{table}
+
+Model fit statistics sharpen this conclusion. The rivalry-only model achieves Harrell's $C = 0.631$ (barely above chance). The capacity-only model reaches $C = 0.763$. Adding rivalry raises concordance by just 0.003 to $C = 0.766$, and a likelihood ratio test fails to reject the null that rivalry contributes no additional explanatory power. In practical terms: knowing a country's industrial structure and population tells you almost everything about its GEO entry timing; rivalry adds nothing.
+
+Figure~\ref{fig:pred_surv} makes the point visually. Predicted survival curves from Model 3, evaluated at rival-share levels of 0\%, 1\%, 10\%, and 40\% (with other covariates at their medians), are nearly indistinguishable---all lying within a narrow band between 85\% and 93\% at 60 years. The contrast with the unconditional KM curves is striking: the dramatic separation in Figure~\ref{fig:km} vanishes entirely once capacity is controlled.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{cox_predicted_survival.png}
+\caption{Predicted survival curves at four rivalry levels (Model 3, capacity held at median). The curves are nearly indistinguishable, confirming that rivalry has minimal conditional effect on entry timing.}
+\label{fig:pred_surv}
+\end{figure}
+
+
+\subsection{Functional Form and Distributional Concerns}
+
+One might wonder whether a nonlinear specification rescues the rivalry effect. A quadratic on the raw percentage scale produces borderline evidence of curvature ($\hat{\beta}_1 \approx -0.154$, $p = 0.056$; $\hat{\beta}_2 \approx 0.00193$, $p = 0.061$). However, this result is fragile: under an inverse hyperbolic sine transformation, both terms become insignificant ($p = 0.784$ and $p = 0.637$). The underlying distribution is massively right-skewed (median through 90th percentile all zero; 99th percentile $\approx 44.2$; kurtosis $\approx 97.4$), meaning the raw-scale quadratic is identified by a handful of extreme observations. Schoenfeld residual tests on Model 4 show no significant violation of the proportional hazards assumption for any covariate, confirming that the null result is not an artifact of time-varying effects being averaged out.
+
+
+\subsection{Reconciling the Cox and DID Results}
+
+The Cox null and the DID positive result are not contradictory---they answer different questions, and their divergence is precisely what the theoretical framework predicts. First GEO entry requires crossing a high capability threshold (launch infrastructure, satellite manufacturing, ITU coordination, sustained financing). These prerequisites are captured by the capacity controls, and once included, rivalry adds nothing. But among countries that have already crossed this threshold, a rivalry shock can shift procurement timelines and increase the political priority of space investment---effects the DID captures on the intensive margin.
+
+The two designs therefore bound the scope of the rivalry effect from both sides. The Cox null shows that rivalry cannot substitute for capability on the extensive margin. The DID positive shows that rivalry accelerates activity among the already capable. Together, they support the paper's central claim that geopolitical competition is a conditional accelerant rather than an independent cause of space entry.
+
+
+\section{Discussion and Conclusion}
+\label{sec:conclusion}
+
+The central contribution of this paper is not a single large coefficient but a distinction between two margins of space competition. On the intensive margin, rivalry matters. A discrete increase in rival pressure is followed by a modest but robust increase in GEO satellite deployment---approximately 6\% in the full sample and roughly 20\% among countries with prior space activity. The Sun--Abraham estimator confirms that this effect is not an artifact of negative weighting in the TWFE design, the placebo permutation test rules out chance ($p = 0.016$), and the leave-one-cohort-out analysis shows that no single treatment cohort drives the result. On the extensive margin, rivalry is far less convincing. The strong bivariate association between rival pressure and first GEO entry ($\text{HR} = 18.92$) collapses to near zero once basic capacity controls enter the Cox model, and model fit statistics confirm that rivalry adds virtually no predictive power beyond what industrial structure and population already provide.
+
+This asymmetry should change how we talk about space competition. A substantial body of policy commentary treats visible rivalry as though it automatically generates imitation---as though a country that observes a rival's orbital expansion will inevitably respond in kind. The evidence here suggests otherwise. Pressure is not capability. States can be alarmed by a rival's advances and still be unable to respond, because GEO entry is expensive, organizationally demanding, and failure-prone. It makes sense that capacity variables do the heavy lifting on the extensive margin, where the binding constraint is whether a country can enter GEO at all, and that rivalry contributes primarily on the intensive margin, where the question is whether an already-capable country chooses to accelerate.
+
+The results also help discipline the arms-race metaphor that pervades both academic and popular discussions of space competition. The metaphor is not useless---the DID results confirm that something resembling competitive escalation does occur among spacefaring states---but it becomes misleading when it erases feasibility constraints. A country with launch infrastructure, engineering teams, procurement routines, and fiscal slack may respond to a rival-pressure shock by moving missions forward in the schedule. A country without those prerequisites cannot simply decide its way into GEO. That is why the same rivalry variable produces a positive and significant effect in the staggered DID and a null in the controlled Cox model: the two designs are measuring different things, and the divergence is informative rather than contradictory.
+
+Several limitations deserve acknowledgment. First, the treatment definition---a 0.2 percentage-point jump in rival share relative to a three-year trailing mean---is a researcher-chosen threshold. While the threshold sensitivity analysis shows that the results hold across a range of cutoffs ($\Delta = 0.10$ to $0.30$), the treatment remains a constructed variable rather than a natural experiment, and the causal interpretation rests on the parallel trends assumption rather than on random assignment. Second, the panel includes only 29 treated units in the main DID specification, limiting statistical power and making the results sensitive to the particular clustering structure. The Sun--Abraham standard errors are notably wider than the TWFE standard errors, and the SA estimate is significant only at the 10\% level. Third, the GEO entry count is a coarse measure of space activity. It does not distinguish between a small communications satellite and a large military surveillance platform, nor does it capture investments in ground infrastructure, spectrum allocation, or launch-vehicle development that may precede or substitute for orbital deployment. Fourth, the rivalry measure is based on the share of GEO assets held by strategic rivals, which is itself an outcome of the process being studied. While the use of lagged values and the jump-based treatment definition mitigate simultaneity concerns, the possibility of reverse causality cannot be fully eliminated within the observational framework.
+
+Despite these limitations, the paper offers a clear empirical contribution. It provides design-based evidence consistent with a modest causal effect of geopolitical rivalry on the intensive margin of GEO activity, while showing that first entry is much more tightly governed by domestic capacity. Any account of space competition that ignores this distinction---that treats rivalry as a sufficient condition for orbital expansion rather than as a conditional accelerant---is too simple to be trusted. Future work could extend this framework by examining other orbital regimes (LEO, MEO), by exploiting finer-grained measures of space capability, or by studying whether the rivalry--capacity interaction operates differently in the commercial and military segments of the space sector.
+
+
+\begin{thebibliography}{99}
+
+\bibitem{jervis1978}
+Jervis, Robert. 1978.
+``Cooperation Under the Security Dilemma.''
+\textit{World Politics} 30(2): 167--214.
+
+\bibitem{glaser1997}
+Glaser, Charles L. 1997.
+``The Security Dilemma Revisited.''
+\textit{World Politics} 50(1): 171--201.
+
+\bibitem{harrison2017}
+Harrison, Todd, Kaitlyn Johnson, Thomas G.\ Roberts, and Tyler Way. 2017.
+\textit{Escalation and Deterrence in the Second Space Age}.
+Washington, DC: Center for Strategic and International Studies.
+
+\bibitem{townsend2020}
+Townsend, Brad. 2020.
+``Strategic Choice and the Orbital Security Dilemma.''
+\textit{Strategic Studies Quarterly} 14(1): 64--93.
+
+\bibitem{lele2019}
+Lele, Ajey. 2019.
+``Space Security Dilemma: India and China.''
+\textit{Astropolitics} 17(1): 23--39.
+
+\bibitem{pekkanen2024}
+Pekkanen, Saadia M., and P.\ J.\ Blount, eds. 2024.
+\textit{The Oxford Handbook of Space Security}.
+Oxford: Oxford University Press.
+
+\bibitem{weeden2024}
+Weeden, Brian, and Victoria Samson, eds. 2024.
+\textit{Global Counterspace Capabilities: An Open Source Assessment}.
+Broomfield, CO: Secure World Foundation.
+
+\bibitem{lewis2019}
+Lewis, Roman S. 2019.
+``States, Satellites, and International Crisis Behavior.''
+PhD diss., University of Nevada, Las Vegas.
+
+\bibitem{moltz2019}
+Moltz, James Clay. 2019.
+\textit{The Politics of Space Security: Strategic Restraint and the Pursuit of National Interests}. 3rd ed.
+Stanford, CA: Stanford University Press.
+
+\bibitem{rogers2003}
+Rogers, Everett M. 2003.
+\textit{Diffusion of Innovations}. 5th ed.
+New York: Free Press.
+
+\bibitem{berry1990}
+Berry, Frances S., and William D.\ Berry. 1990.
+``State Lottery Adoptions as Policy Innovations: An Event History Analysis.''
+\textit{American Political Science Review} 84(2): 395--415.
+
+\bibitem{simmons2004}
+Simmons, Beth A., and Zachary Elkins. 2004.
+``The Globalization of Liberalization: Policy Diffusion in the International Political Economy.''
+\textit{American Political Science Review} 98(1): 171--189.
+
+\bibitem{comin2010}
+Comin, Diego, and Bart Hobijn. 2010.
+``An Exploration of Technology Diffusion.''
+\textit{American Economic Review} 100(5): 2031--2059.
+
+\bibitem[Goodman-Bacon(2021)]{goodmanbacon2021}
+Goodman-Bacon, Andrew. 2021.
+``Difference-in-Differences with Variation in Treatment Timing.''
+\textit{Journal of Econometrics} 225(2): 254--277.
+
+\bibitem[de~Chaisemartin and D'Haultf\oe uille(2020)]{dechaisemartin2020}
+de~Chaisemartin, Cl\'{e}ment, and Xavier D'Haultf\oe uille. 2020.
+``Two-Way Fixed Effects Estimators with Heterogeneous Treatment Effects.''
+\textit{American Economic Review} 110(9): 2964--2996.
+
+\bibitem[Callaway and Sant'Anna(2021)]{callaway2021}
+Callaway, Brantly, and Pedro H.\ C.\ Sant'Anna. 2021.
+``Difference-in-Differences with Multiple Time Periods.''
+\textit{Journal of Econometrics} 225(2): 200--230.
+
+\bibitem[Sun and Abraham(2021)]{sunab2021}
+Sun, Liyang, and Sarah Abraham. 2021.
+``Estimating Dynamic Treatment Effects in Event Studies with Heterogeneous Treatment Effects.''
+\textit{Journal of Econometrics} 225(2): 175--199.
+
+\bibitem{roth2023}
+Roth, Jonathan, Pedro H.\ C.\ Sant'Anna, Alyssa Bilinski, and John Poe. 2023.
+``What's Trending in Difference-in-Differences? A Synthesis of the Recent Econometrics Literature.''
+\textit{Journal of Econometrics} 235(2): 2218--2244.
+
+\bibitem{cox1972}
+Cox, D.\ R. 1972.
+``Regression Models and Life-Tables.''
+\textit{Journal of the Royal Statistical Society, Series B} 34(2): 187--220.
+
+\bibitem{ucs}
+Union of Concerned Scientists. n.d.
+\textit{UCS Satellite Database}.
+Data releases and documentation.
+
+\bibitem{vdem}
+V-Dem Institute. n.d.
+\textit{Varieties of Democracy Dataset and Codebook}.
+
+\bibitem{wdi}
+World Bank. n.d.
+\textit{World Development Indicators}.
+
+%% ---- GCAT ----
+\bibitem{mcdowell2020}
+McDowell, Jonathan C. 2020.
+``The General Catalog of Artificial Space Objects.''
+Available at \url{https://planet4589.org/space/gcat/}.
+Accessed February 2026.
+
+%% ---- Strategic Rivalry ----
+\bibitem{colaresi2008}
+Colaresi, Michael P., Karen Rasler, and William R.\ Thompson. 2008.
+\textit{Strategic Rivalries in World Politics: Position, Space and Conflict Escalation}.
+Cambridge: Cambridge University Press.
+
+%% ---- V-Dem ----
+\bibitem{vdem2024}
+V-Dem Institute. 2024.
+\textit{V-Dem Dataset v14}.
+University of Gothenburg.
+Available at \url{https://www.v-dem.net/}.
+
+\bibitem{coppedge2024}
+Coppedge, Michael, et al. 2024.
+``V-Dem Codebook v14.''
+V-Dem Institute, University of Gothenburg.
+
+%% ---- World Bank ----
+\bibitem{worldbank2024}
+World Bank. 2024.
+\textit{World Development Indicators}.
+Washington, DC.
+Available at \url{https://databank.worldbank.org/source/world-development-indicators}.
+
+%% ---- SIPRI (for military expenditure provenance) ----
+\bibitem{sipri2024}
+Stockholm International Peace Research Institute (SIPRI). 2024.
+\textit{SIPRI Military Expenditure Database}.
+Available at \url{https://www.sipri.org/databases/milex}.
+
+\end{thebibliography}
+
+\end{document}

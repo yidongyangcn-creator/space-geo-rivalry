@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this code or the derived panel, please cite the thesis."
+title: "Rivalry, Capacity, and GEO Activity: Evidence from a Staggered Difference-in-Differences Design"
+authors:
+  - family-names: Yang
+    given-names: Yidong
+type: thesis
+thesis-type: "MA thesis"
+institution:
+  name: "University of Chicago, Master of Arts Program in the Social Sciences"
+year: 2026
+license: MIT
