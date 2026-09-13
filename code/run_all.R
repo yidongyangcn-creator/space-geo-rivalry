@@ -20,7 +20,6 @@ scripts <- c(
   "code/02_analysis/20_summary_stats.R",        # Table 1
   "code/02_analysis/22_did_twfe_sunabraham.R",  # Table 3, Figures 1 and 5
   "code/02_analysis/23_robustness.R",           # Figures 2, 3, 4, 6, 7
-  "code/02_analysis/24_ppml.R",                 # Poisson robustness check
   "code/02_analysis/26_cox_survival.R",         # Appendix E
   "code/02_analysis/27_cox_appendix_figs.R"     # Appendix E, extra figures
 )

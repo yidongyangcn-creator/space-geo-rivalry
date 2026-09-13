@@ -14,7 +14,7 @@ The short answer: **rivalry amplifies, it does not create.** A rival-pressure sh
 |---|---|---|---|
 | TWFE DID (baseline) | 0.0611 | 0.0261 | 0.021 |
 | Sun–Abraham interaction-weighted | 0.0614 | 0.0360 | 0.089 |
-| Subsample: countries with prior GEO activity | 0.191 | 0.093 | 0.041 |
+| Subsample: countries with prior GEO activity | 0.191 | 0.093 | 0.067 |
 | Subsample: countries without | 0.021 | 0.011 | 0.074 |
 
 Outcome is `log(1 + GEO entries)`; both specifications carry country and year fixed effects with standard errors clustered by country. Sample: 8,211 country-years, 29 treated countries, 143 never-treated controls, 1970–2020.
@@ -30,7 +30,7 @@ Outcome is `log(1 + GEO entries)`; both specifications carry country and year fi
 </tr>
 </table>
 
-The design is stress-tested six ways: a Goodman-Bacon decomposition of the TWFE weights, a Sun–Abraham correction for the forbidden-comparison problem, a 1,000-draw permutation placebo (p ≈ 0.02), leave-one-cohort-out, sensitivity to the treatment threshold, and a Poisson (PPML) specification on the raw counts. See `output/figures/`.
+The design is stress-tested five ways: a Goodman-Bacon decomposition of the TWFE weights, a Sun–Abraham correction for the forbidden-comparison problem, a 1,000-draw permutation placebo (p ≈ 0.02), leave-one-cohort-out, and sensitivity to the treatment threshold. See `output/figures/`.
 
 ---
 
@@ -60,7 +60,6 @@ paper/                    thesis.pdf and its LaTeX source
 | `02_analysis/21_baseline_ols.do` | Table 2 — descriptive OLS with year FE (Stata) |
 | `02_analysis/22_did_twfe_sunabraham.R` | Table 3, Figures 1 and 5 — TWFE vs Sun–Abraham |
 | `02_analysis/23_robustness.R` | Figures 2, 3, 4, 6, 7 — cohorts, Bacon, placebo, heterogeneity, LOCO, threshold |
-| `02_analysis/24_ppml.R` | Poisson pseudo-ML robustness check |
 | `02_analysis/25_cox_survival.do` | Appendix E Cox table (Stata) |
 | `02_analysis/26_cox_survival.R` | Appendix E, R port with survival figures |
 | `02_analysis/27_cox_appendix_figs.R` | Appendix E concordance and GDP-split figures |
@@ -77,11 +76,9 @@ Rscript code/run_all.R
 
 Tested with R 4.3. Required: `readr`, `dplyr`, `tidyr`, `stringr`, `slider`, `ggplot2`, `fixest` (≥ 0.11), `survival`, `broom`, `scales`. Optional: `bacondecomp` (Goodman-Bacon figure), `purrr`. The two `.do` files need Stata with `estout` and `outreg2`.
 
-## Two honest caveats
+## A note on `code/03_exploratory/`
 
-**The Poisson specification is not a drop-in robustness check.** With country fixed effects, the Poisson likelihood drops every country that never records a GEO entry — 141 of 172 countries, 97% of the panel being zeros. PPML therefore estimates on 31 countries and 13 treated units, and the two-way-FE coefficient is uninformative (β = 0.02, SE = 0.48). Run on that same restricted sample, the paper's own `log(1+y)` estimate also loses significance (β = 0.079, p = 0.16). `24_ppml.R` reports all of this rather than burying it; the diagnostics print before the estimates.
-
-**`code/03_exploratory/` is a record, not a result.** It contains the grid searches over treatment definitions, outcome transformations and estimation windows that preceded the reported specification, along with the synthetic-control case studies that did not make the paper and the QA scripts used while building the panel. It is committed for transparency about the specification search. Nothing in the paper depends on it.
+This directory is a record, not a result. It contains the grid searches over treatment definitions, outcome transformations and estimation windows that preceded the reported specification, along with the synthetic-control case studies that did not make the paper and the QA scripts used while building the panel. It is committed for transparency about the specification search. Nothing in the paper depends on it.
 
 ## Data sources
 
